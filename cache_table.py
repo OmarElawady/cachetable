@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     time.sleep(3)
 
-    print "expire" in data
+    print("expire" in data)
     data["persist"] = 2
     time.sleep(1)
-    print "persist" in data
+    print("persist" in data)

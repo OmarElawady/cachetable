@@ -14,7 +14,7 @@ class CacheTablePerEntry:
     def get_time(self):
         return int(round(time.time() * 1000))
     def remove_expired(self):
-        for key in self.removalTime.keys():
+        for key in list(self.removalTime.keys()):
             if self.is_expired(key):
                 self.remove_key(key)
     def is_expired(self, key): 
@@ -30,8 +30,8 @@ if __name__ == "__main__":
     dic = CacheTablePerEntry()
     dic.set("expire", 1, 1000)
     time.sleep(2)
-    print dic.exists("expire")
+    print(dic.exists("expire"))
 
     dic.set("persist", 2, 2000)
     time.sleep(1)
-    print dic.exists("persist")
+    print(dic.exists("persist"))
