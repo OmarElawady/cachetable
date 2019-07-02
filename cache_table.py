@@ -22,6 +22,7 @@ class CacheTable(MutableMapping):
     def __len__(self):
         return len(self.data)
     def __iter__(self):
+        self.remove_expired()
         return self
     def get_time(self):
         return int(round(time.time() * 1000))
@@ -34,8 +35,10 @@ class CacheTable(MutableMapping):
 if __name__ == "__main__":
     data = CacheTable(2000)
     data["expire"] = 1
+
     time.sleep(3)
-    print "exopire" in data
+
+    print "expire" in data
     data["persist"] = 2
     time.sleep(1)
     print "persist" in data
