@@ -31,11 +31,11 @@ class CacheTable(MutableMapping):
                 self.insertedTimes.popleft()
     def is_expired(self, entry):
         return self.get_time() - entry.insertion_time > self.ttl
-
-data = CacheTable(2000)
-data["expire"] = 1
-time.sleep(3)
-print "exopire" in data
-data["persist"] = 2
-time.sleep(1)
-print "persist" in data
+if __name__ == "__main__":
+    data = CacheTable(2000)
+    data["expire"] = 1
+    time.sleep(3)
+    print "exopire" in data
+    data["persist"] = 2
+    time.sleep(1)
+    print "persist" in data
