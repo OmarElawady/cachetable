@@ -20,12 +20,14 @@ class CacheTable(MutableMapping):
         Arguments:
             ttl -- time to live for the keys in milliseconds
         
-        data          {dict}  -- The dict of the stored data
-        insertedTimes {deque} -- deque of EntryTime maintained in sorted order
+        data              {dict}  -- The dict of the stored data
+        insertedTimes     {deque} -- deque of EntryTime maintained in sorted order
+        insertedTimesDict {dict}  -- Entrytime for each key (for fast access)
         """
         self.ttl = ttl
         self.data = {}
         self.insertedTimes = deque()
+        self.insertedTimesDict = {}
     def __getitem__(self, key):
         """Gets the value of the key
 
@@ -43,8 +45,10 @@ class CacheTable(MutableMapping):
     def __setitem__(self, key, val):
         self.remove_expired()
         self.data[key] = val
-        self.insertedTimes.appendleft(EntryTime(key, self.get_time()))
+        self.insertedTimes.append(EntryTime(key, self.get_time()))
+        self.insertedTimesDict[key] = self.get_time()
     def __delitem__(self, key):
+        del self.insertedTimesDict[key]
         del self.data[key]
     def __len__(self):
         self.remove_expired()
@@ -58,8 +62,12 @@ class CacheTable(MutableMapping):
     def remove_expired(self):
         """Removes the expired key from the table and unmark their insertion time"""
         while len(self.insertedTimes) != 0 and self.is_expired(self.insertedTimes[0]):
-                del self.data[self.insertedTimes[0].key]
-                self.insertedTimes.popleft()
+            key = self.insertedTimes[0].key
+            if self.insertedTimesDict[key] == self.insertedTimes[0].insertion_time:
+                del self.data[key]
+                del self.insertedTimesDict[key]
+            self.insertedTimes.popleft()
+
     def is_expired(self, entry):
         """Checks whether a key is expired
 
