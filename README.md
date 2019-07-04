@@ -17,18 +17,18 @@ import cache_table
 import time
 
 table1 = cache_table.CacheTable(2000)
-table["key1"] = 1
+table1["key1"] = 1
 time.sleep(3)
 print("key1" in table1) # False
-table["key2"] = 2
+table1["key2"] = 2
 time.sleep(1)
 print("key2" in table1) # True
 
 dic = cache_table_per_entry.CacheTablePerEntry()
 dic.set("expire", 1, 1000)
 time.sleep(2)
-print(dic.exists("expire"))
+print(dic.exists("expire")) # False
 dic.set("persist", 2, 2000)
 time.sleep(1)
-print(dic.exists("persist"))
+print(dic.exists("persist")) # True
 ```
