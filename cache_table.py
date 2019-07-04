@@ -8,6 +8,7 @@ class EntryTime:
 
         Arguments:
             key {object} -- the key
+
             insertion_time -- the time it was inserted in in milliseconds
         """
         self.key = key
@@ -21,7 +22,9 @@ class CacheTable(MutableMapping):
             ttl -- time to live for the keys in milliseconds
         
         data              {dict}  -- The dict of the stored data
+        
         insertedTimes     {deque} -- deque of EntryTime maintained in sorted order
+        
         insertedTimesDict {dict}  -- Entrytime for each key (for fast access)
         """
         self.ttl = ttl

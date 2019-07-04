@@ -6,6 +6,7 @@ class CacheTablePerEntry:
         """Base for CacheTablePerEntry
         
         data        {dict} -- the dictionary in which the table is stored
+        
         removalTime {dict} -- the dictionary which marks the expiration time for each key
         """
         self.data = {}
@@ -31,7 +32,9 @@ class CacheTablePerEntry:
 
         Arguments:
             key {object} -- the name of the key
+        
             val {object} -- the value associated with the key
+            
             ttl {int}    -- time to live in milliseconds
 
         """
