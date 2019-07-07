@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/OmarElawady/cachetable/branch/master/graph/badge.svg)](https://codecov.io/gh/OmarElawady/cachetable)
+[![Build Status](https://travis-ci.com/OmarElawady/cachetable.svg?branch=master)](https://travis-ci.com/OmarElawady/cachetable)
+
 Cache table
 ===========
 
